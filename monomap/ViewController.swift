@@ -10,15 +10,25 @@ import UIKit
 //mapkitによってマップを表示させる
 import MapKit
 
+//現在地を使用するため
+import CoreLocation
+
 //MKMapViewDeligateの追加
 class ViewController: UIViewController, MKMapViewDelegate {
     
     //storyBoardにmapviewを置き、それと接続する
     @IBOutlet weak var mapView:MKMapView!
+   //weakって何？
 
+    var locationManager: CLLocationManager!
+    //CLLの意味は？
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        locationManager = CLLocationManager()
+                locationManager.delegate = self
+                locationManager!.requestWhenInUseAuthorization()
+    
         //緯度・経度を設定
         let location:CLLocationCoordinate2D
                     = CLLocationCoordinate2DMake(35.68154,139.752498)
@@ -71,8 +81,32 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
         // Do any additional setup after loading the view.
     }
+    
+    // 許可を求めるためのdelegateメソッド
+        func locationManager(_ manager: CLLocationManager,didChangeAuthorization status: CLAuthorizationStatus) {
+                switch status {
+                // 許可されてない場合
+                case .notDetermined:
+                // 許可を求める
+                    manager.requestWhenInUseAuthorization()
+                // 拒否されてる場合
+                case .restricted, .denied:
+                    // 何もしない
+                    break
+                // 許可されている場合
+                case .authorizedAlways, .authorizedWhenInUse:
+                    // 現在地の取得を開始
+                    manager.startUpdatingLocation()
+                    break
+                default:
+                    break
 
-
+                }
+        }
+    
+    
+    
+    
 }
 
 
