@@ -56,6 +56,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // mapView.mapType = MKMapType.standard
         // mapView.mapType = MKMapType.satellite
         
+        //マップのデリゲートの設定
+           mapView.delegate = self
+        
+        
+        
         //範囲オブジェクトを作成
         //let region = MKCoordinateRegion(center: coordinate, span: span)
         //spanがサイトだと縮尺の宣言に利用されているがこの場合縮尺のどこを当てはめればいいのか分からない
@@ -75,15 +80,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         myPin.subtitle = "サブタイトル"
         mapView.addAnnotation(myPin)
         
-//       //複数箇所のピン留め
-//        mapView.addAnnotations([myPin, myPin2, ...])
-//
-//
-//        //タイトル、サブタイトルを設定
-//        myPin.title = "皇居"
-//        myPin.subtitle = "天皇がいらっしゃるところ"
-//
-//        //mapViewにピンを追加
+
 //        mapView.addAnnotation(myPin)
         
         
@@ -117,29 +114,42 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     
     //アノテーションビューを返すメソッド
-        func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
      
             //アノテーションビューをマップビューから取り出し、あれば再利用する。
-            var testPinView = mapView.dequeueReusableAnnotationView(withIdentifier: "testPinName") as? MKPinAnnotationView
-            if (testPinView != nil) {
+            var testMarkerView = mapView.dequeueReusableAnnotationView(withIdentifier: "testPinName") as? MKMarkerAnnotationView
+            if (testMarkerView != nil) {
             //nil= 値が存在しない　"!=" = イコールじゃない、つまり”!= nil” は”存在する”
                 
                 //アノテーションビューに座標、タイトル、サブタイトルを設定する。
-                testPinView!.annotation = annotation
+                testMarkerView!.annotation = annotation
             
             } else {
             
                 //アノテーションビューを生成する。
-                testPinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier:"testPinName")
+                testMarkerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier:"testPinName")
             }
             
             //アノテーションビューに色を設定する。
-            testPinView!.pinTintColor = .blue
-     
+            testMarkerView!.markerTintColor = .blue
+
             //吹き出しの表示をONにする。
-            testPinView!.canShowCallout = true
+            testMarkerView!.canShowCallout = true
+            
+//
+            let size: CGSize = CGSize(width: 25, height: 25)
+
+            let markImage = UIImage(named: "toilet")
+            UIGraphicsBeginImageContext(size)
+            markImage!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            let resizedImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+            testMarkerView?.glyphImage = resizedImage
+            
+//            testMarkerView!.glyphImage = UIImage(named: "toilet")
+            
      
-            return testPinView
+            return testMarkerView
+            
         }
     
     
