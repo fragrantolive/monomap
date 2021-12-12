@@ -185,6 +185,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
         }
     
+    @IBAction func switchMarker(){
+        
+    }
     
     
     
