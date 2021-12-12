@@ -16,6 +16,8 @@ import CoreLocation
 //MKMapViewDeligateの追加
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
+    
+    
     //storyBoardにmapviewを置き、それと接続する
     @IBOutlet weak var mapView:MKMapView!
     //weakって何？ = ?
@@ -69,16 +71,34 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         //  mapView.setRegion(region, animated: true)
         
         //ピンを生成
-        let myPin = MKPointAnnotation()
+        let myPin = SpotMKPointAnnotation()
+        let myPin2 = SpotMKPointAnnotation()
+        let myPin3 = SpotMKPointAnnotation()
         
         //ピンの座標設定
         myPin.coordinate = coordinate
+        myPin2.coordinate = coordinate
+        myPin3.coordinate = coordinate
         
       //どこにピンを設置するか
         myPin.coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude)
-        myPin.title = "タイトル"
-        myPin.subtitle = "サブタイトル"
+        myPin.title = "皇居"
+        myPin.subtitle = "天皇のいらっしゃるところ"
+        myPin.type = "toilet"
+        
+        myPin2.coordinate = CLLocationCoordinate2D(latitude: 35.67615110313334, longitude: 139.74486993387376)
+        myPin2.title = "国会議事堂"
+        myPin2.subtitle = "立法の最高機関"
+        myPin2.type = "dustbox"
+        
+        myPin3.coordinate = CLLocationCoordinate2D(latitude: 35.6774439955982, longitude: 139.75228137085188)
+        myPin3.title = "警視庁"
+        myPin3.subtitle = "東京都の警察"
+        myPin3.type = "vendingmachine"
+        
         mapView.addAnnotation(myPin)
+        mapView.addAnnotation(myPin2)
+        mapView.addAnnotation(myPin3)
         
 
 //        mapView.addAnnotation(myPin)
@@ -118,6 +138,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
      
             //アノテーションビューをマップビューから取り出し、あれば再利用する。
             var testMarkerView = mapView.dequeueReusableAnnotationView(withIdentifier: "testPinName") as? MKMarkerAnnotationView
+            
+            let spotMKPointAnnotation = annotation as! SpotMKPointAnnotation
+//            let markImage: UIImage?
+            var markImage = UIImage(named: "toilet")
             if (testMarkerView != nil) {
             //nil= 値が存在しない　"!=" = イコールじゃない、つまり”!= nil” は”存在する”
                 
@@ -130,8 +154,17 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 testMarkerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier:"testPinName")
             }
             
-            //アノテーションビューに色を設定する。
-            testMarkerView!.markerTintColor = .blue
+            if(spotMKPointAnnotation.type == "toilet"){
+                testMarkerView?.markerTintColor = .blue
+                markImage = UIImage(named: "toilet")
+            }else if(spotMKPointAnnotation.type == "dustbox") {
+                testMarkerView?.markerTintColor = .red
+                markImage = UIImage(systemName: "trash")
+                //trush
+            }else if(spotMKPointAnnotation.type == "vendingmachine"){
+                testMarkerView?.markerTintColor = .orange
+                markImage = UIImage(named: "vendingmachine")
+            }
 
             //吹き出しの表示をONにする。
             testMarkerView!.canShowCallout = true
@@ -139,9 +172,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 //
             let size: CGSize = CGSize(width: 25, height: 25)
 
-            let markImage = UIImage(named: "toilet")
+         //   let markImage = UIImage(named: "toilet")
             UIGraphicsBeginImageContext(size)
-            markImage!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            markImage?.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
             let resizedImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
             testMarkerView?.glyphImage = resizedImage
             

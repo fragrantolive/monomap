@@ -13,6 +13,7 @@
 		B5F20A4D2740E362004F76A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5F20A4B2740E362004F76A4 /* Main.storyboard */; };
 		B5F20A4F2740E364004F76A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5F20A4E2740E364004F76A4 /* Assets.xcassets */; };
 		B5F20A522740E364004F76A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5F20A502740E364004F76A4 /* LaunchScreen.storyboard */; };
+		B5FDEECE27659D9000B411A0 /* SpotMKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FDEECD27659D9000B411A0 /* SpotMKAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B5F20A4E2740E364004F76A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5F20A512740E364004F76A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5F20A532740E364004F76A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5FDEECD27659D9000B411A0 /* SpotMKAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMKAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				B5F20A4E2740E364004F76A4 /* Assets.xcassets */,
 				B5F20A502740E364004F76A4 /* LaunchScreen.storyboard */,
 				B5F20A532740E364004F76A4 /* Info.plist */,
+				B5FDEECD27659D9000B411A0 /* SpotMKAnnotation.swift */,
 			);
 			path = monomap;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			files = (
 				B5F20A4A2740E362004F76A4 /* ViewController.swift in Sources */,
 				B5F20A462740E362004F76A4 /* AppDelegate.swift in Sources */,
+				B5FDEECE27659D9000B411A0 /* SpotMKAnnotation.swift in Sources */,
 				B5F20A482740E362004F76A4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
