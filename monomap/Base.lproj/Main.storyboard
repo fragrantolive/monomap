@@ -37,9 +37,28 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3z-Nr-7m9">
-                                <rect key="frame" x="184" y="341" width="46" height="30"/>
+                                <rect key="frame" x="195" y="559" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="トイレ"/>
+                                <connections>
+                                    <action selector="switchMarker" destination="LaA-J6-ixY" eventType="touchUpInside" id="Xjq-Ov-6OS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVo-CI-m3Z">
+                                <rect key="frame" x="79" y="559" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="自販機"/>
+                                <connections>
+                                    <action selector="switchMarker3" destination="LaA-J6-ixY" eventType="touchUpInside" id="Da6-91-eRx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUT-Nv-UK6">
+                                <rect key="frame" x="296" y="559" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="ゴミ箱"/>
+                                <connections>
+                                    <action selector="switchMarker2" destination="LaA-J6-ixY" eventType="touchUpInside" id="OUL-hX-Dbf"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="J1U-Ti-qbu"/>

@@ -33,6 +33,12 @@ let spotAnnotationArray: [SpotMKPointAnnotation] = {
     myPin3.type = "vendingmachine"
     
     spotArray = [myPin, myPin2, myPin3 ]
-    
     return spotArray
+    
 }()
+
+func filteredArray(type: String) -> [SpotMKPointAnnotation]{
+    let kirikaearray = spotAnnotationArray.filter { $0.type == type}
+    
+    return kirikaearray
+}

@@ -81,7 +81,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         myPin3.coordinate = coordinate
         
       //どこにピンを設置するか
-        myPin.coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude)
+        myPin.coordinate = CLLocationCoordinate2D(latitude: 35.685485224293124, longitude: 139.75268636903203)
         myPin.title = "皇居"
         myPin.subtitle = "天皇のいらっしゃるところ"
         myPin.type = "toilet"
@@ -186,10 +186,40 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     
     @IBAction func switchMarker(){
+//        1. マップのピン全削除
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
+//
+//        2. フィルターしたピンを取得
+        let filteredArray = filteredArray(type: "toilet")
         
+//        3. ピンを追加
+        self.mapView.addAnnotations(filteredArray)
     }
     
+    @IBAction func switchMarker2(){
+//        1. マップのピン全削除
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
+//
+//        2. フィルターしたピンを取得
+        let filteredArray = filteredArray(type: "dustbox")
+        
+//        3. ピンを追加
+        self.mapView.addAnnotations(filteredArray)
+    }
     
+    @IBAction func switchMarker3(){
+//        1. マップのピン全削除
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
+//
+//        2. フィルターしたピンを取得
+        let filteredArray = filteredArray(type: "vendingmachine")
+        
+//        3. ピンを追加
+        self.mapView.addAnnotations(filteredArray)
+    }
     
 }
 
