@@ -13,8 +13,10 @@ import MapKit
 //現在地を使用するため
 import CoreLocation
 
+import FloatingPanel
+
 //MKMapViewDeligateの追加
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, FloatingPanelControllerDelegate {
     
     
     
@@ -106,6 +108,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         
         // Do any additional setup after loading the view.
+        
+        guard  let vc = self.storyboard?.instantiateViewController(withIdentifier: "half") as? ViewController2 else {
+            return
+        }
+        self.showSemiModal(vc: vc)
     }
     
     // 許可を求めるためのdelegateメソッド
@@ -220,6 +227,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 //        3. ピンを追加
         self.mapView.addAnnotations(filteredArray)
     }
+    
+    func showSemiModal(vc:ViewController2){
+            
+            let half = FloatingPanelController()
+                       
+            half.delegate = self
+
+        half.surfaceView.appearance.cornerRadius = 24.0
+                    
+            half.set(contentViewController: vc)
+                       
+            // セミモーダルビューを表示する
+            half.addPanel(toParent: self)
+        }
+
+    
     
 }
 

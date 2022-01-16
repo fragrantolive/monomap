@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		905071BC1EE0501F326909B4 /* Pods_monomap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D419DEBF414C1D903D496E2B /* Pods_monomap.framework */; };
+		B56FD2FC2793DE3A004EAB14 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56FD2FB2793DE3A004EAB14 /* ViewController2.swift */; };
 		B5F20A462740E362004F76A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F20A452740E362004F76A4 /* AppDelegate.swift */; };
 		B5F20A482740E362004F76A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F20A472740E362004F76A4 /* SceneDelegate.swift */; };
 		B5F20A4A2740E362004F76A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F20A492740E362004F76A4 /* ViewController.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6FA44F855895FB0FDC8BD0A8 /* Pods-monomap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-monomap.release.xcconfig"; path = "Target Support Files/Pods-monomap/Pods-monomap.release.xcconfig"; sourceTree = "<group>"; };
+		B56FD2FB2793DE3A004EAB14 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		B5F20A422740E362004F76A4 /* monomap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = monomap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5F20A452740E362004F76A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5F20A472740E362004F76A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +32,8 @@
 		B5F20A532740E364004F76A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5FDEECD27659D9000B411A0 /* SpotMKAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMKAnnotation.swift; sourceTree = "<group>"; };
 		B5FDEECF2765C2A900B411A0 /* MKAnnotationArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKAnnotationArray.swift; sourceTree = "<group>"; };
+		B97C1193BB7DA5B4F9C7C4C9 /* Pods-monomap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-monomap.debug.xcconfig"; path = "Target Support Files/Pods-monomap/Pods-monomap.debug.xcconfig"; sourceTree = "<group>"; };
+		D419DEBF414C1D903D496E2B /* Pods_monomap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_monomap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				905071BC1EE0501F326909B4 /* Pods_monomap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +53,8 @@
 			children = (
 				B5F20A442740E362004F76A4 /* monomap */,
 				B5F20A432740E362004F76A4 /* Products */,
+				BD9FC123F1671A718FF0C5FB /* Pods */,
+				E8833C18B4C08B73A8E7431C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,6 +72,7 @@
 				B5F20A452740E362004F76A4 /* AppDelegate.swift */,
 				B5F20A472740E362004F76A4 /* SceneDelegate.swift */,
 				B5F20A492740E362004F76A4 /* ViewController.swift */,
+				B56FD2FB2793DE3A004EAB14 /* ViewController2.swift */,
 				B5F20A4B2740E362004F76A4 /* Main.storyboard */,
 				B5F20A4E2740E364004F76A4 /* Assets.xcassets */,
 				B5F20A502740E364004F76A4 /* LaunchScreen.storyboard */,
@@ -73,6 +83,23 @@
 			path = monomap;
 			sourceTree = "<group>";
 		};
+		BD9FC123F1671A718FF0C5FB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B97C1193BB7DA5B4F9C7C4C9 /* Pods-monomap.debug.xcconfig */,
+				6FA44F855895FB0FDC8BD0A8 /* Pods-monomap.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E8833C18B4C08B73A8E7431C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D419DEBF414C1D903D496E2B /* Pods_monomap.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -80,9 +107,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5F20A562740E364004F76A4 /* Build configuration list for PBXNativeTarget "monomap" */;
 			buildPhases = (
+				5B310F394C7199CC0A6408B4 /* [CP] Check Pods Manifest.lock */,
 				B5F20A3E2740E362004F76A4 /* Sources */,
 				B5F20A3F2740E362004F76A4 /* Frameworks */,
 				B5F20A402740E362004F76A4 /* Resources */,
+				560534579E2814E33A4198A9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -138,6 +167,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		560534579E2814E33A4198A9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-monomap/Pods-monomap-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-monomap/Pods-monomap-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-monomap/Pods-monomap-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5B310F394C7199CC0A6408B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-monomap-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B5F20A3E2740E362004F76A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -148,6 +219,7 @@
 				B5FDEED02765C2A900B411A0 /* MKAnnotationArray.swift in Sources */,
 				B5FDEECE27659D9000B411A0 /* SpotMKAnnotation.swift in Sources */,
 				B5F20A482740E362004F76A4 /* SceneDelegate.swift in Sources */,
+				B56FD2FC2793DE3A004EAB14 /* ViewController2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +363,7 @@
 		};
 		B5F20A572740E364004F76A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B97C1193BB7DA5B4F9C7C4C9 /* Pods-monomap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -309,6 +382,7 @@
 		};
 		B5F20A582740E364004F76A4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FA44F855895FB0FDC8BD0A8 /* Pods-monomap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
