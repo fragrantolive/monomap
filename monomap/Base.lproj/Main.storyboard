@@ -11,7 +11,7 @@
         <!--Item 2-->
         <scene sceneID="uBq-SE-8kK">
             <objects>
-                <viewController storyboardIdentifier="half" id="zow-JC-LBs" customClass="ViewController" customModule="monomap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="half" id="zow-JC-LBs" customClass="ViewController2" customModule="monomap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wwl-aF-vPL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,16 +20,25 @@
                                 <rect key="frame" x="80" y="208" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="自販機"/>
+                                <connections>
+                                    <action selector="jihanki" destination="zow-JC-LBs" eventType="touchUpInside" id="sB9-M5-TAx"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rc2-lb-ZEZ">
                                 <rect key="frame" x="184" y="208" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="トイレ"/>
+                                <connections>
+                                    <action selector="toilet" destination="zow-JC-LBs" eventType="touchUpInside" id="vzZ-eM-xf6"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6IF-2P-Ifr">
                                 <rect key="frame" x="289" y="208" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="ゴミ箱"/>
+                                <connections>
+                                    <action selector="dustbox" destination="zow-JC-LBs" eventType="touchUpInside" id="Uze-Hn-eRp"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="44K-4s-sR2"/>

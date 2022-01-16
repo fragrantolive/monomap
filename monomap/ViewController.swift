@@ -237,12 +237,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         half.surfaceView.appearance.cornerRadius = 24.0
                     
             half.set(contentViewController: vc)
+            vc.delegate = self
                        
             // セミモーダルビューを表示する
             half.addPanel(toParent: self)
         }
 
-    
+
     
 }
 

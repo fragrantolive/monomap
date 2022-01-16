@@ -9,7 +9,8 @@ import UIKit
 import MapKit
 
 class ViewController2: UIViewController {
-
+ 
+    var delegate: ViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,10 +55,22 @@ class ViewController2: UIViewController {
 //        }
         
     }
+    
+    @IBAction func toilet() {
+        delegate?.switchMarker()
+    }
+
+    @IBAction func dustbox() {
+        delegate?.switchMarker2()
+    }
+
+    @IBAction func jihanki() {
+        delegate?.switchMarker3()
+    }
 
 
         // Do any additional setup after loading the view.
-    }
+}
     
 
     /*
