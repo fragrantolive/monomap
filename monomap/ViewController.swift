@@ -241,6 +241,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                        
             // セミモーダルビューを表示する
             half.addPanel(toParent: self)
+        half.move(to: .tip, animated: false)
         }
 
 
