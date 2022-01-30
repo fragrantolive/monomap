@@ -63,9 +63,9 @@ class ViewController2: UIViewController {
     
     override func viewDidLayoutSubviews() {
            super.viewDidLayoutSubviews()
-        self.button1.backgroundColor = UIColor.systemYellow
-        self.button2.backgroundColor = UIColor.systemYellow
-        self.button3.backgroundColor = UIColor.systemYellow
+        self.button1.backgroundColor = UIColor.systemGray
+        self.button2.backgroundColor = UIColor.systemGray
+        self.button3.backgroundColor = UIColor.systemGray
     
            
            //角丸の程度を指定
