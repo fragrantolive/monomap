@@ -11,10 +11,15 @@ import MapKit
 class ViewController2: UIViewController {
  
     var delegate: ViewController?
-
+    
+    @IBOutlet weak var button1: UIButton!
+    @IBOutlet weak var button2: UIButton!
+    @IBOutlet weak var button3: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
 
         
         
@@ -55,6 +60,21 @@ class ViewController2: UIViewController {
 //        }
         
     }
+    
+    override func viewDidLayoutSubviews() {
+           super.viewDidLayoutSubviews()
+        self.button1.backgroundColor = UIColor.systemYellow
+        self.button2.backgroundColor = UIColor.systemYellow
+        self.button3.backgroundColor = UIColor.systemYellow
+    
+           
+           //角丸の程度を指定
+           self.button1.layer.cornerRadius = 35.0
+        self.button2.layer.cornerRadius = 35.0
+        self.button3.layer.cornerRadius = 35.0
+        
+        
+       }
     
     @IBAction func toilet() {
         delegate?.switchMarker()

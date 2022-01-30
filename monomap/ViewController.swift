@@ -269,7 +269,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 let annotation = SpotMKPointAnnotation()
                 annotation.type = "dustbox"
                 annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
-                annotation.title = "ピン"
+                annotation.title = "新規追加"
                 annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
                 mapView.addAnnotation(annotation)
             }
