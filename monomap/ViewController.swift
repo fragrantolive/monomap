@@ -16,7 +16,7 @@ import CoreLocation
 import FloatingPanel
 
 //MKMapViewDeligateの追加
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, FloatingPanelControllerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, FloatingPanelControllerDelegate, UIGestureRecognizerDelegate {
     
     
     
@@ -32,6 +32,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager!.requestWhenInUseAuthorization()
+        
+        //ロングプレス用のインスタンスを生成する
+            let longPressGesture = UILongPressGestureRecognizer(
+                target: self,
+                action: #selector(ViewController.longPress(_:))
+            )
+
+            //デリゲートをセット
+            longPressGesture.delegate = self
+
+            //viewにロングプレスジェスチャーを追加
+            self.mapView.addGestureRecognizer(longPressGesture)
         
         //緯度・経度を設定
         let location:CLLocationCoordinate2D
@@ -244,10 +256,24 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         half.move(to: .tip, animated: false)
         }
 
-
+    //ロングプレス処理の実装
+    @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
+            
+            let location:CGPoint = sender.location(in: mapView)
+            
+            if (sender.state == UIGestureRecognizer.State.ended){
+                       //タップした位置を緯度、経度の座標に変換する。
+                let mapPoint:CLLocationCoordinate2D = mapView.convert(location,toCoordinateFrom: mapView)
+                       
+                       //ピンを作成してマップビューに登録する。
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
+                annotation.title = "ピン"
+                annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
+                mapView.addAnnotation(annotation)
+            }
+        }
     
 }
-
-
 
 
