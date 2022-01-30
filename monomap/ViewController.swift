@@ -266,7 +266,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 let mapPoint:CLLocationCoordinate2D = mapView.convert(location,toCoordinateFrom: mapView)
                        
                        //ピンを作成してマップビューに登録する。
-                let annotation = MKPointAnnotation()
+                let annotation = SpotMKPointAnnotation()
+                annotation.type = "dustbox"
                 annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
                 annotation.title = "ピン"
                 annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
