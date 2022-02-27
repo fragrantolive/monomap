@@ -25,6 +25,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     //weakって何？ = ?
     
     var locationManager: CLLocationManager!
+    let pinArray: [SpotMKPointAnnotation] = []
     //CLの意味は？＝ CoreLocation
     
     override func viewDidLoad() {
@@ -127,30 +128,95 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         self.showSemiModal(vc: vc)
     }
     
-    // 許可を求めるためのdelegateメソッド
-    func locationManager(_ manager: CLLocationManager,didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        // 許可されてない場合
-        case .notDetermined:
-            // 許可を求める
-            manager.requestWhenInUseAuthorization()
-        // 拒否されてる場合
-        case .restricted, .denied:
-            // 何もしない
-            break
-        // 許可されている場合
-        case .authorizedAlways, .authorizedWhenInUse:
-            // 現在地の取得を開始
-            manager.startUpdatingLocation()
-            break
-        default:
-            break
+    
+    
+    
+    
+    
+    
+
+    
+    func showSemiModal(vc:ViewController2){
             
-            
-            
+            let half = FloatingPanelController()
+                       
+            half.delegate = self
+
+        half.surfaceView.appearance.cornerRadius = 24.0
+                    
+            half.set(contentViewController: vc)
+            vc.delegate = self
+                       
+            // セミモーダルビューを表示する
+            half.addPanel(toParent: self)
+        half.move(to: .tip, animated: false)
         }
+
+    
+        }
+    
+
+
+// @IBAction
+extension ViewController {
+    @IBAction func switchMarker(){
+//        1. マップのピン全削除
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
+//
+//        2. フィルターしたピンを取得
+        let filteredArray = filteredArray(type: "toilet")
+        
+//        3. ピンを追加
+        self.mapView.addAnnotations(filteredArray)
+    }
+    @IBAction func switchMarker2(){
+//        1. マップのピン全削除
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
+//
+//        2. フィルターしたピンを取得
+        let filteredArray = filteredArray(type: "dustbox")
+        
+//        3. ピンを追加
+        self.mapView.addAnnotations(filteredArray)
     }
     
+    @IBAction func switchMarker3(){
+//        1. マップのピン全削除
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
+//
+//        2. フィルターしたピンを取得
+        let filteredArray = filteredArray(type: "vendingmachine")
+        
+//        3. ピンを追加
+        self.mapView.addAnnotations(filteredArray)
+    }
+    
+    //ロングプレス処理の実装
+    @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
+            
+            let location:CGPoint = sender.location(in: mapView)
+            
+            if (sender.state == UIGestureRecognizer.State.ended){
+                       //タップした位置を緯度、経度の座標に変換する。
+                let mapPoint:CLLocationCoordinate2D = mapView.convert(location,toCoordinateFrom: mapView)
+                       
+                       //ピンを作成してマップビューに登録する。
+                let annotation = SpotMKPointAnnotation()
+                annotation.type = "dustbox"
+                annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
+                annotation.title = "新規追加"
+                annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
+                mapView.addAnnotation(annotation)
+            }
+    }
+    
+}
+
+// MapViewの設定
+extension ViewController {
     
     //アノテーションビューを返すメソッド
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -204,77 +270,36 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
         }
     
-    @IBAction func switchMarker(){
-//        1. マップのピン全削除
-        let allAnnotations = self.mapView.annotations
-        self.mapView.removeAnnotations(allAnnotations)
-//
-//        2. フィルターしたピンを取得
-        let filteredArray = filteredArray(type: "toilet")
-        
-//        3. ピンを追加
-        self.mapView.addAnnotations(filteredArray)
-    }
-    
-    @IBAction func switchMarker2(){
-//        1. マップのピン全削除
-        let allAnnotations = self.mapView.annotations
-        self.mapView.removeAnnotations(allAnnotations)
-//
-//        2. フィルターしたピンを取得
-        let filteredArray = filteredArray(type: "dustbox")
-        
-//        3. ピンを追加
-        self.mapView.addAnnotations(filteredArray)
-    }
-    
-    @IBAction func switchMarker3(){
-//        1. マップのピン全削除
-        let allAnnotations = self.mapView.annotations
-        self.mapView.removeAnnotations(allAnnotations)
-//
-//        2. フィルターしたピンを取得
-        let filteredArray = filteredArray(type: "vendingmachine")
-        
-//        3. ピンを追加
-        self.mapView.addAnnotations(filteredArray)
-    }
-    
-    func showSemiModal(vc:ViewController2){
-            
-            let half = FloatingPanelController()
-                       
-            half.delegate = self
 
-        half.surfaceView.appearance.cornerRadius = 24.0
-                    
-            half.set(contentViewController: vc)
-            vc.delegate = self
-                       
-            // セミモーダルビューを表示する
-            half.addPanel(toParent: self)
-        half.move(to: .tip, animated: false)
-        }
+    
 
-    //ロングプレス処理の実装
-    @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
+}
+
+// 位置情報の設定
+
+extension ViewController {
+    // 許可を求めるためのdelegateメソッド
+    func locationManager(_ manager: CLLocationManager,didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        // 許可されてない場合
+        case .notDetermined:
+            // 許可を求める
+            manager.requestWhenInUseAuthorization()
+        // 拒否されてる場合
+        case .restricted, .denied:
+            // 何もしない
+            break
+        // 許可されている場合
+        case .authorizedAlways, .authorizedWhenInUse:
+            // 現在地の取得を開始
+            manager.startUpdatingLocation()
+            break
+        default:
+            break
             
-            let location:CGPoint = sender.location(in: mapView)
             
-            if (sender.state == UIGestureRecognizer.State.ended){
-                       //タップした位置を緯度、経度の座標に変換する。
-                let mapPoint:CLLocationCoordinate2D = mapView.convert(location,toCoordinateFrom: mapView)
-                       
-                       //ピンを作成してマップビューに登録する。
-                let annotation = SpotMKPointAnnotation()
-                annotation.type = "dustbox"
-                annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
-                annotation.title = "新規追加"
-                annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
-                mapView.addAnnotation(annotation)
-            }
+            
         }
     
 }
-
-
+}
