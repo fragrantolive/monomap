@@ -18,8 +18,6 @@ import FloatingPanel
 //MKMapViewDeligateの追加
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, FloatingPanelControllerDelegate, UIGestureRecognizerDelegate {
     
-    
-    
     //storyBoardにmapviewを置き、それと接続する
     @IBOutlet weak var mapView:MKMapView!
     //weakって何？ = ?
@@ -35,16 +33,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager!.requestWhenInUseAuthorization()
         
         //ロングプレス用のインスタンスを生成する
-            let longPressGesture = UILongPressGestureRecognizer(
-                target: self,
-                action: #selector(ViewController.longPress(_:))
-            )
-
-            //デリゲートをセット
-            longPressGesture.delegate = self
-
-            //viewにロングプレスジェスチャーを追加
-            self.mapView.addGestureRecognizer(longPressGesture)
+        let longPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(ViewController.longPress(_:))
+        )
+        
+        //デリゲートをセット
+        longPressGesture.delegate = self
+        
+        //viewにロングプレスジェスチャーを追加
+        self.mapView.addGestureRecognizer(longPressGesture)
         
         //緯度・経度を設定
         let location:CLLocationCoordinate2D
@@ -52,11 +50,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         mapView.setCenter(location,animated: true)
         
-        
         //中心となる場所の座標オブジェクト作成
-        
         let coordinate = CLLocationCoordinate2DMake(35.68154,139.752498)
-        
         
         // 縮尺を設定
         var region:MKCoordinateRegion = mapView.region
@@ -70,20 +65,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         // 表示タイプを航空写真と地図のハイブリッドに設定
         mapView.mapType = MKMapType.standard
-        // mapView.mapType = MKMapType.standard
-        // mapView.mapType = MKMapType.satellite
         
         //マップのデリゲートの設定
-           mapView.delegate = self
-        
-        
-        
-        //範囲オブジェクトを作成
-        //let region = MKCoordinateRegion(center: coordinate, span: span)
-        //spanがサイトだと縮尺の宣言に利用されているがこの場合縮尺のどこを当てはめればいいのか分からない
-        
-        //MapViewに範囲オブジェクトを設定
-        //  mapView.setRegion(region, animated: true)
+        mapView.delegate = self
         
         //ピンを生成
         let myPin = SpotMKPointAnnotation()
@@ -95,7 +79,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         myPin2.coordinate = coordinate
         myPin3.coordinate = coordinate
         
-      //どこにピンを設置するか
+        //どこにピンを設置するか
         myPin.coordinate = CLLocationCoordinate2D(latitude: 35.685485224293124, longitude: 139.75268636903203)
         myPin.title = "皇居"
         myPin.subtitle = "天皇のいらっしゃるところ"
@@ -115,164 +99,134 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         mapView.addAnnotation(myPin2)
         mapView.addAnnotation(myPin3)
         
-
-//        mapView.addAnnotation(myPin)
-        
-        
-        
-        // Do any additional setup after loading the view.
-        
         guard  let vc = self.storyboard?.instantiateViewController(withIdentifier: "half") as? ViewController2 else {
             return
         }
         self.showSemiModal(vc: vc)
     }
     
-    
-    
-    
-    
-    
-    
-
-    
     func showSemiModal(vc:ViewController2){
-            
-            let half = FloatingPanelController()
-                       
-            half.delegate = self
-
+        
+        let half = FloatingPanelController()
+        
+        half.delegate = self
+        
         half.surfaceView.appearance.cornerRadius = 24.0
-                    
-            half.set(contentViewController: vc)
-            vc.delegate = self
-                       
-            // セミモーダルビューを表示する
-            half.addPanel(toParent: self)
+        
+        half.set(contentViewController: vc)
+        vc.delegate = self
+        
+        // セミモーダルビューを表示する
+        half.addPanel(toParent: self)
         half.move(to: .tip, animated: false)
-        }
-
-    
-        }
-    
-
+    }
+}
 
 // @IBAction
 extension ViewController {
     @IBAction func switchMarker(){
-//        1. マップのピン全削除
+        //        1. マップのピン全削除
         let allAnnotations = self.mapView.annotations
         self.mapView.removeAnnotations(allAnnotations)
-//
-//        2. フィルターしたピンを取得
+        //
+        //        2. フィルターしたピンを取得
         let filteredArray = filteredArray(type: "toilet")
         
-//        3. ピンを追加
+        //        3. ピンを追加
         self.mapView.addAnnotations(filteredArray)
     }
     @IBAction func switchMarker2(){
-//        1. マップのピン全削除
+        //        1. マップのピン全削除
         let allAnnotations = self.mapView.annotations
         self.mapView.removeAnnotations(allAnnotations)
-//
-//        2. フィルターしたピンを取得
+        //
+        //        2. フィルターしたピンを取得
         let filteredArray = filteredArray(type: "dustbox")
         
-//        3. ピンを追加
+        //        3. ピンを追加
         self.mapView.addAnnotations(filteredArray)
     }
     
     @IBAction func switchMarker3(){
-//        1. マップのピン全削除
+        //        1. マップのピン全削除
         let allAnnotations = self.mapView.annotations
         self.mapView.removeAnnotations(allAnnotations)
-//
-//        2. フィルターしたピンを取得
+        //
+        //        2. フィルターしたピンを取得
         let filteredArray = filteredArray(type: "vendingmachine")
         
-//        3. ピンを追加
+        //        3. ピンを追加
         self.mapView.addAnnotations(filteredArray)
     }
     
     //ロングプレス処理の実装
     @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
+        
+        let location:CGPoint = sender.location(in: mapView)
+        
+        if (sender.state == UIGestureRecognizer.State.ended){
+            //タップした位置を緯度、経度の座標に変換する。
+            let mapPoint:CLLocationCoordinate2D = mapView.convert(location,toCoordinateFrom: mapView)
             
-            let location:CGPoint = sender.location(in: mapView)
-            
-            if (sender.state == UIGestureRecognizer.State.ended){
-                       //タップした位置を緯度、経度の座標に変換する。
-                let mapPoint:CLLocationCoordinate2D = mapView.convert(location,toCoordinateFrom: mapView)
-                       
-                       //ピンを作成してマップビューに登録する。
-                let annotation = SpotMKPointAnnotation()
-                annotation.type = "dustbox"
-                annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
-                annotation.title = "新規追加"
-                annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
-                mapView.addAnnotation(annotation)
-            }
+            //ピンを作成してマップビューに登録する。
+            let annotation = SpotMKPointAnnotation()
+            annotation.type = "dustbox"
+            annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
+            annotation.title = "新規追加"
+            annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
+            mapView.addAnnotation(annotation)
+        }
     }
-    
 }
 
 // MapViewの設定
 extension ViewController {
     
     //アノテーションビューを返すメソッド
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-     
-            //アノテーションビューをマップビューから取り出し、あれば再利用する。
-            var testMarkerView = mapView.dequeueReusableAnnotationView(withIdentifier: "testPinName") as? MKMarkerAnnotationView
-            
-            let spotMKPointAnnotation = annotation as! SpotMKPointAnnotation
-//            let markImage: UIImage?
-            var markImage = UIImage(named: "toilet")
-            if (testMarkerView != nil) {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        //アノテーションビューをマップビューから取り出し、あれば再利用する。
+        var testMarkerView = mapView.dequeueReusableAnnotationView(withIdentifier: "testPinName") as? MKMarkerAnnotationView
+        
+        let spotMKPointAnnotation = annotation as! SpotMKPointAnnotation
+        var markImage = UIImage(named: "toilet")
+        if (testMarkerView != nil) {
             //nil= 値が存在しない　"!=" = イコールじゃない、つまり”!= nil” は”存在する”
-                
-                //アノテーションビューに座標、タイトル、サブタイトルを設定する。
-                testMarkerView!.annotation = annotation
             
-            } else {
+            //アノテーションビューに座標、タイトル、サブタイトルを設定する。
+            testMarkerView!.annotation = annotation
             
-                //アノテーションビューを生成する。
-                testMarkerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier:"testPinName")
-            }
+        } else {
             
-            if(spotMKPointAnnotation.type == "toilet"){
-                testMarkerView?.markerTintColor = .blue
-                markImage = UIImage(named: "toilet")
-            }else if(spotMKPointAnnotation.type == "dustbox") {
-                testMarkerView?.markerTintColor = .red
-                markImage = UIImage(systemName: "trash")
-                //trush
-            }else if(spotMKPointAnnotation.type == "vendingmachine"){
-                testMarkerView?.markerTintColor = .orange
-                markImage = UIImage(named: "vendingmachine")
-            }
-
-            //吹き出しの表示をONにする。
-            testMarkerView!.canShowCallout = true
-            
-//
-            let size: CGSize = CGSize(width: 25, height: 25)
-
-         //   let markImage = UIImage(named: "toilet")
-            UIGraphicsBeginImageContext(size)
-            markImage?.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-            let resizedImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
-            testMarkerView?.glyphImage = resizedImage
-            
-//            testMarkerView!.glyphImage = UIImage(named: "toilet")
-            
-     
-            return testMarkerView
-            
+            //アノテーションビューを生成する。
+            testMarkerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier:"testPinName")
         }
+        
+        if(spotMKPointAnnotation.type == "toilet"){
+            testMarkerView?.markerTintColor = .blue
+            markImage = UIImage(named: "toilet")
+        }else if(spotMKPointAnnotation.type == "dustbox") {
+            testMarkerView?.markerTintColor = .red
+            markImage = UIImage(systemName: "trash")
+            //trush
+        }else if(spotMKPointAnnotation.type == "vendingmachine"){
+            testMarkerView?.markerTintColor = .orange
+            markImage = UIImage(named: "vendingmachine")
+        }
+        
+        //吹き出しの表示をONにする。
+        testMarkerView!.canShowCallout = true
+        
+        let size: CGSize = CGSize(width: 25, height: 25)
+        
+        UIGraphicsBeginImageContext(size)
+        markImage?.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let resizedImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+        testMarkerView?.glyphImage = resizedImage
+        
+        return testMarkerView
+    }
     
-
-    
-
 }
 
 // 位置情報の設定
@@ -296,10 +250,8 @@ extension ViewController {
             break
         default:
             break
-            
-            
-            
+
         }
-    
-}
+        
+    }
 }
