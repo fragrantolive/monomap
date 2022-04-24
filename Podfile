@@ -8,4 +8,6 @@ target 'monomap' do
   # Pods for monomap
     pod 'FloatingPanel' 
 
+    pod 'RealmSwift'
+
 end
