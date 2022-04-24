@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 //mapkitによってマップを表示させる
 import MapKit
@@ -167,6 +168,13 @@ extension ViewController {
         if (sender.state == UIGestureRecognizer.State.ended){
             //タップした位置を緯度、経度の座標に変換する。
             let mapPoint:CLLocationCoordinate2D = mapView.convert(location,toCoordinateFrom: mapView)
+           
+            //位置を取得
+            // 緯度
+            let lat:String = mapPoint.latitude.description
+            // 経度
+            let lon:String = mapPoint.longitude.description
+            
             
             //ピンを作成してマップビューに登録する。
             let annotation = SpotMKPointAnnotation()
@@ -175,6 +183,9 @@ extension ViewController {
             annotation.title = "新規追加"
             annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
             mapView.addAnnotation(annotation)
+            
+            //保存したピンの呼び出し
+            savePin(latitude: lat, longitude: lon)
         }
     }
 }
@@ -253,5 +264,16 @@ extension ViewController {
 
         }
         
+    }
+    
+    //ピンの保存処理
+    func savePin(latitude: String, longitude: String) {
+        let pin = Pin()
+        pin.latitude = latitude
+        pin.longitude = longitude
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(pin)
+        }
     }
 }
