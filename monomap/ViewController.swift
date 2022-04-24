@@ -238,6 +238,9 @@ extension ViewController {
         return testMarkerView
     }
     
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+           // TODO: Pinを取得してMap上に表示する
+    
 }
 
 // 位置情報の設定
