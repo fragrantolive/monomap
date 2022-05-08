@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		905071BC1EE0501F326909B4 /* Pods_monomap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D419DEBF414C1D903D496E2B /* Pods_monomap.framework */; };
+		B5430553282768F4000EA04E /* Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5430552282768F4000EA04E /* Save.swift */; };
 		B56FD2FC2793DE3A004EAB14 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56FD2FB2793DE3A004EAB14 /* ViewController2.swift */; };
 		B5B2605C27A6649500466942 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5B2605E27A6649500466942 /* Localizable.strings */; };
-		B5E728B528152A04002DDEEB /* class1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E728B428152A04002DDEEB /* class1.swift */; };
 		B5F20A462740E362004F76A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F20A452740E362004F76A4 /* AppDelegate.swift */; };
 		B5F20A482740E362004F76A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F20A472740E362004F76A4 /* SceneDelegate.swift */; };
 		B5F20A4A2740E362004F76A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F20A492740E362004F76A4 /* ViewController.swift */; };
@@ -23,12 +23,12 @@
 
 /* Begin PBXFileReference section */
 		6FA44F855895FB0FDC8BD0A8 /* Pods-monomap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-monomap.release.xcconfig"; path = "Target Support Files/Pods-monomap/Pods-monomap.release.xcconfig"; sourceTree = "<group>"; };
+		B5430552282768F4000EA04E /* Save.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Save.swift; sourceTree = "<group>"; };
 		B56FD2FB2793DE3A004EAB14 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		B5B2605827A6607600466942 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		B5B2605927A6607600466942 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B5B2605D27A6649500466942 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B5B2605F27A664AC00466942 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		B5E728B428152A04002DDEEB /* class1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = class1.swift; sourceTree = "<group>"; };
 		B5F20A422740E362004F76A4 /* monomap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = monomap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5F20A452740E362004F76A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5F20A472740E362004F76A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 				B5B2605E27A6649500466942 /* Localizable.strings */,
 				B5FDEECD27659D9000B411A0 /* SpotMKAnnotation.swift */,
 				B5FDEECF2765C2A900B411A0 /* MKAnnotationArray.swift */,
-				B5E728B428152A04002DDEEB /* class1.swift */,
+				B5430552282768F4000EA04E /* Save.swift */,
 			);
 			path = monomap;
 			sourceTree = "<group>";
@@ -229,7 +229,7 @@
 				B5F20A462740E362004F76A4 /* AppDelegate.swift in Sources */,
 				B5FDEED02765C2A900B411A0 /* MKAnnotationArray.swift in Sources */,
 				B5FDEECE27659D9000B411A0 /* SpotMKAnnotation.swift in Sources */,
-				B5E728B528152A04002DDEEB /* class1.swift in Sources */,
+				B5430553282768F4000EA04E /* Save.swift in Sources */,
 				B5F20A482740E362004F76A4 /* SceneDelegate.swift in Sources */,
 				B56FD2FC2793DE3A004EAB14 /* ViewController2.swift in Sources */,
 			);

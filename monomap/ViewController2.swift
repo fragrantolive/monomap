@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import RealmSwift
 
 class ViewController2: UIViewController {
  
@@ -46,5 +47,3 @@ class ViewController2: UIViewController {
         delegate?.switchMarker3()
     }
 }
-    
-
