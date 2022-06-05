@@ -135,6 +135,33 @@ extension ViewController {
         
         //        3. ピンを追加
         self.mapView.addAnnotations(filteredArray)
+        //座標の取得
+        func getAllPins() -> [Pin] {
+           let realm = try! Realm()
+           var results: [Pin] = []
+           for pin in realm.objects(Pin.self) {
+               results.append(pin)
+           }
+           return results
+        }
+        
+        //String の緯度と軽度をCLLocationCoordinate2D に変換
+        func getAnnotations() -> [MKPointAnnotation]  {
+           let pins = getAllPins()
+           var results:[MKPointAnnotation] = []
+           
+           pins.forEach { pin in
+               let annotation = MKPointAnnotation()
+               let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
+               annotation.coordinate = centerCoordinate
+               results.append(annotation)
+           }
+           return results
+        }
+        let annotations = getAnnotations()
+        annotations.forEach { annotation in
+            mapView.addAnnotation(annotation)
+        }
     }
     @IBAction func switchMarker2(){
         //        1. マップのピン全削除
@@ -146,6 +173,33 @@ extension ViewController {
         
         //        3. ピンを追加
         self.mapView.addAnnotations(filteredArray)
+        //座標の取得
+        func getAllPins() -> [Pin] {
+           let realm = try! Realm()
+           var results: [Pin] = []
+           for pin in realm.objects(Pin.self) {
+               results.append(pin)
+           }
+           return results
+        }
+        
+        //String の緯度と軽度をCLLocationCoordinate2D に変換
+        func getAnnotations() -> [MKPointAnnotation]  {
+           let pins = getAllPins()
+           var results:[MKPointAnnotation] = []
+           
+           pins.forEach { pin in
+               let annotation = MKPointAnnotation()
+               let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
+               annotation.coordinate = centerCoordinate
+               results.append(annotation)
+           }
+           return results
+        }
+        let annotations = getAnnotations()
+        annotations.forEach { annotation in
+            mapView.addAnnotation(annotation)
+        }
     }
     
     @IBAction func switchMarker3(){
@@ -158,6 +212,33 @@ extension ViewController {
         
         //        3. ピンを追加
         self.mapView.addAnnotations(filteredArray)
+        //座標の取得
+        func getAllPins() -> [Pin] {
+           let realm = try! Realm()
+           var results: [Pin] = []
+           for pin in realm.objects(Pin.self) {
+               results.append(pin)
+           }
+           return results
+        }
+        
+        //String の緯度と軽度をCLLocationCoordinate2D に変換
+        func getAnnotations() -> [MKPointAnnotation]  {
+           let pins = getAllPins()
+           var results:[MKPointAnnotation] = []
+           
+           pins.forEach { pin in
+               let annotation = MKPointAnnotation()
+               let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
+               annotation.coordinate = centerCoordinate
+               results.append(annotation)
+           }
+           return results
+        }
+        let annotations = getAnnotations()
+        annotations.forEach { annotation in
+            mapView.addAnnotation(annotation)
+        }
     }
 
     
@@ -253,36 +334,36 @@ extension ViewController {
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
            // TODO: Pinを取得してMap上に表示する
         
-        //座標の取得
-        func getAllPins() -> [Pin] {
-           let realm = try! Realm()
-           var results: [Pin] = []
-           for pin in realm.objects(Pin.self) {
-               results.append(pin)
-           }
-           return results
-        }
-        
-        //String の緯度と軽度をCLLocationCoordinate2D に変換
-        func getAnnotations() -> [MKPointAnnotation]  {
-           let pins = getAllPins()
-           var results:[MKPointAnnotation] = []
-           
-           pins.forEach { pin in
-               let annotation = MKPointAnnotation()
-               let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
-               annotation.coordinate = centerCoordinate
-               results.append(annotation)
-           }
-           return results
-        }
+//        //座標の取得
+//        func getAllPins() -> [Pin] {
+//           let realm = try! Realm()
+//           var results: [Pin] = []
+//           for pin in realm.objects(Pin.self) {
+//               results.append(pin)
+//           }
+//           return results
+//        }
+//
+//        //String の緯度と軽度をCLLocationCoordinate2D に変換
+//        func getAnnotations() -> [MKPointAnnotation]  {
+//           let pins = getAllPins()
+//           var results:[MKPointAnnotation] = []
+//
+//           pins.forEach { pin in
+//               let annotation = MKPointAnnotation()
+//               let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
+//               annotation.coordinate = centerCoordinate
+//               results.append(annotation)
+//           }
+//           return results
+//        }
         
         func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
            // TODO: Pinを取得してMap上に表示する
-           let annotations = getAnnotations()
-           annotations.forEach { annotation in
-               mapView.addAnnotation(annotation)
-           }
+//           let annotations = getAnnotations()
+//           annotations.forEach { annotation in
+//               mapView.addAnnotation(annotation)
+//           }
         }
 }
 
