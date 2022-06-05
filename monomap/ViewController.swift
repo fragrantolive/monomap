@@ -6,79 +6,34 @@
 //
 
 import UIKit
-import RealmSwift
-
-//mapkitによってマップを表示させる
-import MapKit
-
-//現在地を使用するため
-import CoreLocation
+import MapKit//mapkitによってマップを表示させる
+import CoreLocation//現在地を使用するため
 
 import FloatingPanel
+import RealmSwift
 
-//MKMapViewDeligateの追加
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, FloatingPanelControllerDelegate, UIGestureRecognizerDelegate {
+
+class ViewController: UIViewController,  FloatingPanelControllerDelegate, UIGestureRecognizerDelegate {
     
     //storyBoardにmapviewを置き、それと接続する
     @IBOutlet weak var mapView:MKMapView!
-    //weakって何？ = ?
     
-    var locationManager: CLLocationManager!
+    var locationManager: CLLocationManager = CLLocationManager()
     let pinArray: [SpotMKPointAnnotation] = []
-    //CLの意味は？＝ CoreLocation
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager = CLLocationManager()
+        setupMapView()
+        addLongPressGesture()
+        showSemiModal()
         locationManager.delegate = self
-        locationManager!.requestWhenInUseAuthorization()
-        
-        //ロングプレス用のインスタンスを生成する
-        let longPressGesture = UILongPressGestureRecognizer(
-            target: self,
-            action: #selector(ViewController.longPress(_:))
-        )
-        
-        //デリゲートをセット
-        longPressGesture.delegate = self
-        
-        //viewにロングプレスジェスチャーを追加
-        self.mapView.addGestureRecognizer(longPressGesture)
-        
-        //緯度・経度を設定
-        let location:CLLocationCoordinate2D
-            = CLLocationCoordinate2DMake(35.68154,139.752498)
-        
-        mapView.setCenter(location,animated: true)
-        
-        //中心となる場所の座標オブジェクト作成
-        let coordinate = CLLocationCoordinate2DMake(35.68154,139.752498)
-        
-        // 縮尺を設定
-        var region:MKCoordinateRegion = mapView.region
-        region.center = location
-        region.span.latitudeDelta = 0.02
-        region.span.longitudeDelta = 0.02
-        
-        mapView.setRegion(region,animated:true)
-        //種尺を設定
-        let span = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
-        
-        // 表示タイプを航空写真と地図のハイブリッドに設定
-        mapView.mapType = MKMapType.standard
-        
-        //マップのデリゲートの設定
-        mapView.delegate = self
+        mapView.delegate = self //マップのデリゲートの設定
+        locationManager.requestWhenInUseAuthorization()
         
         //ピンを生成
         let myPin = SpotMKPointAnnotation()
         let myPin2 = SpotMKPointAnnotation()
         let myPin3 = SpotMKPointAnnotation()
-        
-        //ピンの座標設定
-        myPin.coordinate = coordinate
-        myPin2.coordinate = coordinate
-        myPin3.coordinate = coordinate
         
         //どこにピンを設置するか
         myPin.coordinate = CLLocationCoordinate2D(latitude: 35.685485224293124, longitude: 139.75268636903203)
@@ -99,14 +54,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         mapView.addAnnotation(myPin)
         mapView.addAnnotation(myPin2)
         mapView.addAnnotation(myPin3)
-        
-        guard  let vc = self.storyboard?.instantiateViewController(withIdentifier: "half") as? ViewController2 else {
-            return
-        }
-        self.showSemiModal(vc: vc)
+
     }
     
-    func showSemiModal(vc:ViewController2){
+    func showSemiModal(){
+        guard  let vc = self.storyboard?.instantiateViewController(withIdentifier: "half") as? ViewController2 else {return}
         
         let half = FloatingPanelController()
         
@@ -121,127 +73,77 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         half.addPanel(toParent: self)
         half.move(to: .tip, animated: false)
     }
+    
+    func setupMapView() {
+        
+        //緯度・経度を設定
+        let location:CLLocationCoordinate2D
+            = CLLocationCoordinate2DMake(35.68154,139.752498)
+        
+        mapView.setCenter(location,animated: true)
+        
+        // 縮尺を設定
+        var region:MKCoordinateRegion = mapView.region
+        region.center = location
+        region.span.latitudeDelta = 0.02
+        region.span.longitudeDelta = 0.02
+        
+        mapView.setRegion(region,animated:true)
+        
+        // 表示タイプを航空写真と地図のハイブリッドに設定
+        mapView.mapType = MKMapType.standard
+    }
+    
+    func addLongPressGesture() {
+        //ロングプレス用のインスタンスを生成する
+        let longPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(ViewController.longPress(_:))
+        )
+        longPressGesture.delegate = self //デリゲートをセット
+        //viewにロングプレスジェスチャーを追加
+        self.mapView.addGestureRecognizer(longPressGesture)
+    }
 }
 
 // @IBAction
 extension ViewController {
-    @IBAction func switchMarker(){
+    func switchMarker(type: String) {
         //        1. マップのピン全削除
         let allAnnotations = self.mapView.annotations
         self.mapView.removeAnnotations(allAnnotations)
-        //
         //        2. フィルターしたピンを取得
-        let filteredArray = filteredArray(type: "toilet")
-        
+        let filteredArray = filteredArray(type: type)
         //        3. ピンを追加
         self.mapView.addAnnotations(filteredArray)
-        //座標の取得
-        func getAllPins() -> [Pin] {
-           let realm = try! Realm()
-           var results: [Pin] = []
-           for pin in realm.objects(Pin.self) {
-               results.append(pin)
-           }
-           return results
-        }
-        
         //String の緯度と軽度をCLLocationCoordinate2D に変換
-        func getAnnotations() -> [MKPointAnnotation]  {
-           let pins = getAllPins()
-           var results:[MKPointAnnotation] = []
-           
-           pins.forEach { pin in
-               let annotation = MKPointAnnotation()
-               let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
-               annotation.coordinate = centerCoordinate
-               results.append(annotation)
-           }
-           return results
-        }
-        let annotations = getAnnotations()
-        annotations.forEach { annotation in
-            mapView.addAnnotation(annotation)
-        }
-    }
-    @IBAction func switchMarker2(){
-        //        1. マップのピン全削除
-        let allAnnotations = self.mapView.annotations
-        self.mapView.removeAnnotations(allAnnotations)
-        //
-        //        2. フィルターしたピンを取得
-        let filteredArray = filteredArray(type: "dustbox")
-        
-        //        3. ピンを追加
-        self.mapView.addAnnotations(filteredArray)
-        //座標の取得
-        func getAllPins() -> [Pin] {
-           let realm = try! Realm()
-           var results: [Pin] = []
-           for pin in realm.objects(Pin.self) {
-               results.append(pin)
-           }
-           return results
-        }
-        
-        //String の緯度と軽度をCLLocationCoordinate2D に変換
-        func getAnnotations() -> [MKPointAnnotation]  {
-           let pins = getAllPins()
-           var results:[MKPointAnnotation] = []
-           
-           pins.forEach { pin in
-               let annotation = MKPointAnnotation()
-               let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
-               annotation.coordinate = centerCoordinate
-               results.append(annotation)
-           }
-           return results
-        }
         let annotations = getAnnotations()
         annotations.forEach { annotation in
             mapView.addAnnotation(annotation)
         }
     }
     
-    @IBAction func switchMarker3(){
-        //        1. マップのピン全削除
-        let allAnnotations = self.mapView.annotations
-        self.mapView.removeAnnotations(allAnnotations)
-        //
-        //        2. フィルターしたピンを取得
-        let filteredArray = filteredArray(type: "vendingmachine")
-        
-        //        3. ピンを追加
-        self.mapView.addAnnotations(filteredArray)
-        //座標の取得
-        func getAllPins() -> [Pin] {
-           let realm = try! Realm()
-           var results: [Pin] = []
-           for pin in realm.objects(Pin.self) {
-               results.append(pin)
-           }
-           return results
+    //座標の取得
+    func getAllPins() -> [Pin] {
+        let realm = try! Realm()
+        var results: [Pin] = []
+        for pin in realm.objects(Pin.self) {
+            results.append(pin)
         }
-        
-        //String の緯度と軽度をCLLocationCoordinate2D に変換
-        func getAnnotations() -> [MKPointAnnotation]  {
-           let pins = getAllPins()
-           var results:[MKPointAnnotation] = []
-           
-           pins.forEach { pin in
-               let annotation = MKPointAnnotation()
-               let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
-               annotation.coordinate = centerCoordinate
-               results.append(annotation)
-           }
-           return results
-        }
-        let annotations = getAnnotations()
-        annotations.forEach { annotation in
-            mapView.addAnnotation(annotation)
-        }
+        return results
     }
-
-    
+    func getAnnotations() -> [MKPointAnnotation]  {
+        let pins = getAllPins()
+        var results:[MKPointAnnotation] = []
+        
+        pins.forEach { pin in
+            let annotation = MKPointAnnotation()
+            let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
+            annotation.coordinate = centerCoordinate
+            results.append(annotation)
+        }
+        return results
+    }
     //ロングプレス処理の実装
     @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
         
@@ -250,14 +152,11 @@ extension ViewController {
         if (sender.state == UIGestureRecognizer.State.ended){
             //タップした位置を緯度、経度の座標に変換する。
             let mapPoint:CLLocationCoordinate2D = mapView.convert(location,toCoordinateFrom: mapView)
-           
             //位置を取得
             // 緯度
             let lat:String = mapPoint.latitude.description
             // 経度
             let lon:String = mapPoint.longitude.description
-            
-            
             //ピンを作成してマップビューに登録する。
             let annotation = SpotMKPointAnnotation()
             annotation.type = "dustbox"
@@ -265,8 +164,7 @@ extension ViewController {
             annotation.title = "新規追加"
             annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
             mapView.addAnnotation(annotation)
-            
-            
+                    
             //ピンの保存処理
             func savePin(latitude: String, longitude: String) {
                 let pin = Pin()
@@ -283,10 +181,8 @@ extension ViewController {
     }
 }
 
-// MapViewの設定
-extension ViewController {
+extension ViewController: MKMapViewDelegate{
     
-    //アノテーションビューを返すメソッド
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         //アノテーションビューをマップビューから取り出し、あれば再利用する。
@@ -295,13 +191,9 @@ extension ViewController {
         let spotMKPointAnnotation = annotation as! SpotMKPointAnnotation
         var markImage = UIImage(named: "toilet")
         if (testMarkerView != nil) {
-            //nil= 値が存在しない　"!=" = イコールじゃない、つまり”!= nil” は”存在する”
-            
             //アノテーションビューに座標、タイトル、サブタイトルを設定する。
             testMarkerView!.annotation = annotation
-            
         } else {
-            
             //アノテーションビューを生成する。
             testMarkerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier:"testPinName")
         }
@@ -330,44 +222,11 @@ extension ViewController {
         
         return testMarkerView
     }
-    
-    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-           // TODO: Pinを取得してMap上に表示する
-        
-//        //座標の取得
-//        func getAllPins() -> [Pin] {
-//           let realm = try! Realm()
-//           var results: [Pin] = []
-//           for pin in realm.objects(Pin.self) {
-//               results.append(pin)
-//           }
-//           return results
-//        }
-//
-//        //String の緯度と軽度をCLLocationCoordinate2D に変換
-//        func getAnnotations() -> [MKPointAnnotation]  {
-//           let pins = getAllPins()
-//           var results:[MKPointAnnotation] = []
-//
-//           pins.forEach { pin in
-//               let annotation = MKPointAnnotation()
-//               let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
-//               annotation.coordinate = centerCoordinate
-//               results.append(annotation)
-//           }
-//           return results
-//        }
-        
-        func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-           // TODO: Pinを取得してMap上に表示する
-//           let annotations = getAnnotations()
-//           annotations.forEach { annotation in
-//               mapView.addAnnotation(annotation)
-//           }
-        }
 }
 
-// 位置情報の設定
+//位置情報系
+extension ViewController: CLLocationManagerDelegate {
+    // 位置情報の設定
     // 許可を求めるためのdelegateメソッド
     func locationManager(_ manager: CLLocationManager,didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
@@ -386,9 +245,7 @@ extension ViewController {
             break
         default:
             break
-
+            
         }
     }
-
-
 }

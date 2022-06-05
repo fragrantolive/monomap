@@ -36,14 +36,14 @@ class ViewController2: UIViewController {
        }
     
     @IBAction func toilet() {
-        delegate?.switchMarker()
+        delegate?.switchMarker(type: "toilet")
     }
 
     @IBAction func dustbox() {
-        delegate?.switchMarker2()
+        delegate?.switchMarker(type: "dustbox")
     }
 
     @IBAction func jihanki() {
-        delegate?.switchMarker3()
+        delegate?.switchMarker(type: "vendingmachine")
     }
 }
