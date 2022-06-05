@@ -14,8 +14,6 @@ let spotAnnotationArray: [SpotMKPointAnnotation] = {
     let myPin = SpotMKPointAnnotation()
     let myPin2 = SpotMKPointAnnotation()
     let myPin3 = SpotMKPointAnnotation()
-    
-    
   //どこにピンを設置するか
     myPin.coordinate = CLLocationCoordinate2D(latitude: 35.685485224293124, longitude: 139.75268636903203)
     myPin.title = "皇居"
@@ -39,7 +37,7 @@ let spotAnnotationArray: [SpotMKPointAnnotation] = {
 
 extension Array where Element == SpotMKPointAnnotation {
     func filter(type: String) -> [SpotMKPointAnnotation]{
-        let kirikaearray = spotAnnotationArray.filter { $0.type == type}
+        let kirikaearray = filter { $0.type == type}
         return kirikaearray
 }
 }

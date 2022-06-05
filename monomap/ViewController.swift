@@ -51,8 +51,6 @@ class ViewController: UIViewController,  FloatingPanelControllerDelegate, UIGest
         myPin3.subtitle = "東京都の警察"
         myPin3.type = "vendingmachine"
         
-        
-        
         mapView.addAnnotation(myPin)
         mapView.addAnnotation(myPin2)
         mapView.addAnnotation(myPin3)
@@ -86,17 +84,14 @@ class ViewController: UIViewController,  FloatingPanelControllerDelegate, UIGest
             = CLLocationCoordinate2DMake(35.68154,139.752498)
         
         mapView.setCenter(location,animated: true)
-        
-        // 縮尺を設定
-        var region:MKCoordinateRegion = mapView.region
+ 
+        var region:MKCoordinateRegion = mapView.region  // 縮尺を設定
         region.center = location
         region.span.latitudeDelta = 0.02
         region.span.longitudeDelta = 0.02
         
         mapView.setRegion(region,animated:true)
-        
-        // 表示タイプを航空写真と地図のハイブリッドに設定
-        mapView.mapType = MKMapType.standard
+        mapView.mapType = MKMapType.standard  // 表示タイプを航空写真と地図のハイブリッドに設定
     }
     
     func addLongPressGesture() {
@@ -106,21 +101,17 @@ class ViewController: UIViewController,  FloatingPanelControllerDelegate, UIGest
             action: #selector(ViewController.longPress(_:))
         )
         longPressGesture.delegate = self //デリゲートをセット
-        //viewにロングプレスジェスチャーを追加
-        self.mapView.addGestureRecognizer(longPressGesture)
+        self.mapView.addGestureRecognizer(longPressGesture)  //viewにロングプレスジェスチャーを追加
     }
 }
 
 // @IBAction
 extension ViewController {
     func switchMarker(type: String) {
-        //        1. マップのピン全削除
-        let allAnnotations = self.mapView.annotations
+        let allAnnotations = self.mapView.annotations //1. マップのピン全削除
         self.mapView.removeAnnotations(allAnnotations)
-        //        2. フィルターしたピンを取得
-        let annotations = getAnnotations().filter(type: type)
-        //        3. ピンを追加
-        mapView.addAnnotations(annotations)
+        let annotations = getAnnotations().filter(type: type)  //2. フィルターしたピンを取得
+        mapView.addAnnotations(annotations) //3. ピンを追加
     }
     
     //座標の取得
@@ -140,6 +131,7 @@ extension ViewController {
             let annotation = SpotMKPointAnnotation()
             let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
             annotation.coordinate = centerCoordinate
+            annotation.type = pin.type
             results.append(annotation)
         }
         return results
@@ -210,8 +202,7 @@ extension ViewController: MKMapViewDelegate{
             markImage = UIImage(named: "vendingmachine")
         }
         
-        //吹き出しの表示をONにする。
-        testMarkerView!.canShowCallout = true
+        testMarkerView!.canShowCallout = true //吹き出しの表示をONにする。
         
         let size: CGSize = CGSize(width: 25, height: 25)
         
