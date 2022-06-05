@@ -15,4 +15,6 @@ class  Pin: Object {
     // 経度
     @objc dynamic var longitude = ""
     
+    
+    @objc dynamic var type = ""
  }

@@ -37,8 +37,11 @@ let spotAnnotationArray: [SpotMKPointAnnotation] = {
     
 }()
 
-func filteredArray(type: String) -> [SpotMKPointAnnotation]{
-    let kirikaearray = spotAnnotationArray.filter { $0.type == type}
-    
-    return kirikaearray
+extension Array where Element == SpotMKPointAnnotation {
+    func filter(type: String) -> [SpotMKPointAnnotation]{
+        let kirikaearray = spotAnnotationArray.filter { $0.type == type}
+        return kirikaearray
 }
+}
+
+

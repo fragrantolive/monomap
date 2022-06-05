@@ -51,10 +51,15 @@ class ViewController: UIViewController,  FloatingPanelControllerDelegate, UIGest
         myPin3.subtitle = "東京都の警察"
         myPin3.type = "vendingmachine"
         
+        
+        
         mapView.addAnnotation(myPin)
         mapView.addAnnotation(myPin2)
         mapView.addAnnotation(myPin3)
 
+        let result = getAnnotations() //Realmに保存したAnnotationを取得
+        mapView.addAnnotations(result) //AnnotationをMapViewに表示
+        
     }
     
     func showSemiModal(){
@@ -113,14 +118,9 @@ extension ViewController {
         let allAnnotations = self.mapView.annotations
         self.mapView.removeAnnotations(allAnnotations)
         //        2. フィルターしたピンを取得
-        let filteredArray = filteredArray(type: type)
+        let annotations = getAnnotations().filter(type: type)
         //        3. ピンを追加
-        self.mapView.addAnnotations(filteredArray)
-        //String の緯度と軽度をCLLocationCoordinate2D に変換
-        let annotations = getAnnotations()
-        annotations.forEach { annotation in
-            mapView.addAnnotation(annotation)
-        }
+        mapView.addAnnotations(annotations)
     }
     
     //座標の取得
@@ -132,12 +132,12 @@ extension ViewController {
         }
         return results
     }
-    func getAnnotations() -> [MKPointAnnotation]  {
+    func getAnnotations() -> [SpotMKPointAnnotation]  {
         let pins = getAllPins()
-        var results:[MKPointAnnotation] = []
+        var results:[SpotMKPointAnnotation] = []
         
         pins.forEach { pin in
-            let annotation = MKPointAnnotation()
+            let annotation = SpotMKPointAnnotation()
             let centerCoordinate = CLLocationCoordinate2D(latitude: (pin.latitude as NSString).doubleValue, longitude:(pin.longitude as NSString).doubleValue)
             annotation.coordinate = centerCoordinate
             results.append(annotation)
@@ -165,18 +165,19 @@ extension ViewController {
             annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
             mapView.addAnnotation(annotation)
                     
-            //ピンの保存処理
-            func savePin(latitude: String, longitude: String) {
-                let pin = Pin()
-                pin.latitude = latitude
-                pin.longitude = longitude
-                let realm = try! Realm()
-                try! realm.write {
-                    realm.add(pin)
-                }
-            }
             //保存したピンの呼び出し
-            savePin(latitude: lat, longitude: lon)
+            savePin(latitude: lat, longitude: lon, type: annotation.type)
+        }
+    }
+    //ピンの保存処理
+    func savePin(latitude: String, longitude: String, type: String) {
+        let pin = Pin()
+        pin.latitude = latitude
+        pin.longitude = longitude
+        pin.type = type
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(pin)
         }
     }
 }
@@ -197,7 +198,6 @@ extension ViewController: MKMapViewDelegate{
             //アノテーションビューを生成する。
             testMarkerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier:"testPinName")
         }
-        
         if(spotMKPointAnnotation.type == "toilet"){
             testMarkerView?.markerTintColor = .blue
             markImage = UIImage(named: "toilet")
