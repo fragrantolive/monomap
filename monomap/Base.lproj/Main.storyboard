@@ -16,29 +16,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="何を探す？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptb-ew-ibC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="何を探す？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptb-ew-ibC">
                                 <rect key="frame" x="147" y="110" width="120" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vRv-Me-jZb">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRv-Me-jZb">
                                 <rect key="frame" x="0.0" y="185" width="414" height="185"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rc2-lb-ZEZ">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rc2-lb-ZEZ">
                                         <rect key="frame" x="172" y="57" width="70" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="person.fill" catalog="system"/>
                                         <connections>
                                             <action selector="toilet" destination="zow-JC-LBs" eventType="touchUpInside" id="vzZ-eM-xf6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6IF-2P-Ifr">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6IF-2P-Ifr">
                                         <rect key="frame" x="292" y="57" width="70" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="trash" catalog="system"/>
@@ -46,8 +42,8 @@
                                             <action selector="dustbox" destination="zow-JC-LBs" eventType="touchUpInside" id="Uze-Hn-eRp"/>
                                         </connections>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="099-Fe-M0U">
-                                        <rect key="frame" x="16" y="45" width="398" height="160"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="099-Fe-M0U">
+                                        <rect key="frame" x="31" y="12" width="24" height="22"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwj-3b-nVg">
                                                 <rect key="frame" x="0.0" y="0.0" width="24" height="22"/>
@@ -62,18 +58,48 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="6IF-2P-Ifr" secondAttribute="trailing" constant="52" id="16I-8g-YoH"/>
+                                    <constraint firstItem="zhh-Le-POg" firstAttribute="bottom" secondItem="099-Fe-M0U" secondAttribute="bottom" constant="151" id="7lw-EC-fqY"/>
+                                    <constraint firstItem="6IF-2P-Ifr" firstAttribute="leading" secondItem="Rc2-lb-ZEZ" secondAttribute="trailing" constant="50" id="8uI-5w-9I0"/>
+                                    <constraint firstItem="Rc2-lb-ZEZ" firstAttribute="top" secondItem="6IF-2P-Ifr" secondAttribute="top" id="Blv-j6-2zW"/>
+                                    <constraint firstItem="099-Fe-M0U" firstAttribute="leading" secondItem="zhh-Le-POg" secondAttribute="leading" constant="31" id="C03-pU-7eD"/>
+                                    <constraint firstAttribute="bottom" secondItem="Rc2-lb-ZEZ" secondAttribute="bottom" constant="58" id="DbD-5c-yir"/>
+                                    <constraint firstItem="Rc2-lb-ZEZ" firstAttribute="centerY" secondItem="vRv-Me-jZb" secondAttribute="centerY" id="T7O-MA-bTv"/>
+                                    <constraint firstItem="Rc2-lb-ZEZ" firstAttribute="leading" secondItem="zhh-Le-POg" secondAttribute="leading" constant="172" id="alP-0b-8EJ"/>
+                                    <constraint firstItem="zhh-Le-POg" firstAttribute="trailing" secondItem="6IF-2P-Ifr" secondAttribute="trailing" constant="52" id="fcu-sk-fNb"/>
+                                    <constraint firstItem="Rc2-lb-ZEZ" firstAttribute="bottom" secondItem="6IF-2P-Ifr" secondAttribute="bottom" id="iPy-Hm-I8r"/>
+                                    <constraint firstItem="Rc2-lb-ZEZ" firstAttribute="top" secondItem="zhh-Le-POg" secondAttribute="top" constant="57" id="kc1-GN-gmf"/>
+                                    <constraint firstItem="Rc2-lb-ZEZ" firstAttribute="centerX" secondItem="vRv-Me-jZb" secondAttribute="centerX" id="sfa-YT-AR1"/>
+                                    <constraint firstItem="099-Fe-M0U" firstAttribute="top" secondItem="zhh-Le-POg" secondAttribute="top" constant="12" id="si2-Au-phv"/>
+                                </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="UTe-iR-o6Z"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="zhh-Le-POg"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bg1-Nb-O7w">
+                                <rect key="frame" x="0.0" y="456" width="414" height="128"/>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="44K-4s-sR2"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Bg1-Nb-O7w" firstAttribute="leading" secondItem="44K-4s-sR2" secondAttribute="leading" id="54P-af-key"/>
+                            <constraint firstItem="44K-4s-sR2" firstAttribute="bottom" secondItem="Bg1-Nb-O7w" secondAttribute="bottom" constant="269" id="8Ki-UO-e8i"/>
+                            <constraint firstAttribute="trailing" secondItem="vRv-Me-jZb" secondAttribute="trailing" id="FJQ-gI-1mv"/>
+                            <constraint firstItem="vRv-Me-jZb" firstAttribute="top" secondItem="ptb-ew-ibC" secondAttribute="bottom" constant="51" id="FK3-pn-gCN"/>
+                            <constraint firstItem="Bg1-Nb-O7w" firstAttribute="top" secondItem="vRv-Me-jZb" secondAttribute="bottom" constant="95" id="GVe-SK-2cv"/>
+                            <constraint firstItem="vRv-Me-jZb" firstAttribute="leading" secondItem="Wwl-aF-vPL" secondAttribute="leading" id="L76-Yl-Euf"/>
+                            <constraint firstItem="ptb-ew-ibC" firstAttribute="top" secondItem="44K-4s-sR2" secondAttribute="top" constant="66" id="M4c-su-7P7"/>
+                            <constraint firstItem="vRv-Me-jZb" firstAttribute="centerX" secondItem="ptb-ew-ibC" secondAttribute="centerX" id="hNW-am-93U"/>
+                            <constraint firstItem="Bg1-Nb-O7w" firstAttribute="trailing" secondItem="44K-4s-sR2" secondAttribute="trailing" id="lUz-6e-Tl5"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="60S-uh-1VH"/>
                     <connections>
                         <outlet property="button1" destination="cwj-3b-nVg" id="UpP-ho-anW"/>
                         <outlet property="button2" destination="Rc2-lb-ZEZ" id="fPd-lv-ouN"/>
                         <outlet property="button3" destination="6IF-2P-Ifr" id="f9z-5C-5rg"/>
+                        <outlet property="scrollView" destination="Bg1-Nb-O7w" id="fal-IK-umq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6D-Jx-1lY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
