@@ -15,6 +15,9 @@ import RealmSwift
 
 class ViewController: UIViewController,  FloatingPanelControllerDelegate, UIGestureRecognizerDelegate {
     
+    @IBAction  func SegueBotton(_ sender: Any){
+        performSegue(withIdentifier: "ModalSegue", sender: nil)
+    }
     //storyBoardにmapviewを置き、それと接続する
     @IBOutlet weak var mapView:MKMapView!
     
