@@ -106,6 +106,12 @@ class ViewController: UIViewController,  FloatingPanelControllerDelegate, UIGest
         longPressGesture.delegate = self //デリゲートをセット
         self.mapView.addGestureRecognizer(longPressGesture)  //viewにロングプレスジェスチャーを追加
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toNext" {
+            let toNext = segue.destination as! ModalViewController
+            toNext.modalPresentationStyle = .overCurrentContext
+        }
+    }
 }
 
 // @IBAction
@@ -152,6 +158,7 @@ extension ViewController {
             let lat:String = mapPoint.latitude.description
             // 経度
             let lon:String = mapPoint.longitude.description
+            self.performSegue(withIdentifier: "toNext", sender: nil)
             //ピンを作成してマップビューに登録する。
             let annotation = SpotMKPointAnnotation()
             annotation.type = "dustbox"

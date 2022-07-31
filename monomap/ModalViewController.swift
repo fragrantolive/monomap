@@ -7,15 +7,35 @@
 
 import UIKit
 
-class ModalViewController: UIViewController {
-
+class ModalViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    @IBOutlet var PickerView: UIPickerView! // 自販機とかのPickerView
+    var placeArray: [String] = ["vendingmachine","toilet","dustbox" ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        
+        // データソースの設定
+           PickerView.dataSource = self
+           // デリゲートの設定
+          PickerView.delegate = self
+       }
         // Do any additional setup after loading the view.
+    
+    @IBAction func back(){
+        self.dismiss(animated: true, completion: nil)
     }
     
-
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        return placeArray.count
+    }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return placeArray[row] //row = 前から一つずつ取り出す
+    }
+    
     /*
     // MARK: - Navigation
 
